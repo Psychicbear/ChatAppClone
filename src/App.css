@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+}
+
+
+.main-col {
+  min-height: 98vh;
+}
+
+.server-list {
+  background-color: #202225;
+}
+
+.server-bar-left {
+  background-color: #2f3136;
+}
+
+.server-main {
+  background-color: #36393f;
+}
+
+.server-bar-right {
+  background-color: #2f3136;
+}
