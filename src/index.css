@@ -5,7 +5,7 @@
 
 @layer components {
   html {
-    @apply select-none;
+    @apply select-none text-primary hidden-scroll-y;
   }
 
     /* Hide scrollbar for Chrome, Safari and Opera */
@@ -22,13 +22,13 @@
 
   .tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max rounded-md 
-    shadow-md text-white bg-gray-900 text-xs font-bold 
+    shadow-md bg-floating text-xs font-bold 
     transition-all duration-75 scale-0;
   }
 
   .sidebar {
-    @apply h-screen w-16 m-0 flex-shrink-0 bg-gray-900 
-        text-white shadow-lg justify-between
+    @apply h-screen w-16 m-0 flex-shrink-0 bg-tertiary 
+        shadow-lg justify-between
   }
 
   .sidebar-icon {
@@ -45,17 +45,17 @@
 
   .context-bar {
     @apply h-screen w-56 m-0 flex-shrink-0 flex flex-col 
-        bg-gray-800 text-white shadow-lg hidden-scroll-y
+        bg-secondary shadow-lg hidden-scroll-y
   }
 
   .control-section {
     @apply w-56 m-0 flex flex-shrink-0 flex-col-reverse justify-end 
-          items-center bg-gray-900;
+          items-center bg-secondary;
   }
 
   .control-item {
     @apply flex flex-row items-center justify-between border-t 
-          w-full border-y-gray-600 text-white p-3;
+          w-full border-y-gray-600 p-3;
   }
 
   .control-button {
@@ -72,7 +72,7 @@
 
   .content-view{
     @apply h-screen m-0 flex flex-grow flex-shrink flex-col 
-          bg-gray-700 text-white;
+          bg-dark-600;
   }
 
   .content-icon {
@@ -93,27 +93,37 @@
           justify-between select-auto;
   }
 
+  /* .chat-main {
+    @apply flex flex-row flex-wrap-reverse flex-grow flex-shrink;
+  } */
+
   .chat-main {
     @apply flex flex-col-reverse flex-grow;
   }
 
   .chat-bar {
-    @apply flex flex-row flex-grow flex-shrink-0 bg-gray-700 h-16
+    @apply flex flex-row flex-grow flex-shrink-0 bg-dark-600 h-16
             w-full justify-center content-center px-4 pb-4;
   }
 
   .chatform {
-    @apply flex flex-grow bg-gray-600 h-12 rounded-xl 
+    @apply flex flex-grow bg-dark-560 h-12 rounded-xl 
           mt-[-0.25em] max-h-[50vh];
   }
 
   .chatform button, textarea {
-    @apply px-4 hover:bg-gray-500;
+    @apply px-4 hover:bg-gray-500 ;
   }
 
 
-  .chatform textarea:focus {
-    @apply border-0;
+  .chatform textarea {
+    @apply rounded-md focus-within:outline-none items-center 
+        bg-dark-560;
+  }
+
+
+  .chatform button {
+    @apply rounded-full m-1 items-center;
   }
 
   .chat-textarea {
@@ -122,11 +132,16 @@
 
   .chat-content {
     @apply flex flex-col-reverse flex-shrink hidden-scroll-y 
-          h-full w-full items-center select-text;
+          h-full w-full items-center select-auto;
   }
 
+
   .chat-message {
-    @apply flex flex-row hover:bg-gray-800 w-full px-1 p-4;
+    @apply flex flex-row hover:bg-gray-800 w-full px-1 mt-4;
+  }
+
+  .chat-submessage {
+    @apply flex flex-row hover:bg-gray-800 w-full items-center pl-1
   }
 
   .chat-message p {
@@ -134,16 +149,16 @@
   }
 
   .chat-msg-date {
-    @apply text-sm
+    @apply text-xs text-muted font-normal;
   }
 
   .chat-sidebar {
-    @apply flex flex-col bg-gray-900 w-56 flex-shrink-0 px-3 
-          py-6;
+    @apply flex flex-col bg-secondary w-56 flex-shrink-0 px-3 
+          py-6 select-none min-w-[14rem];
   }
 
   .chat-groupheader {
-    @apply text-sm text-gray-500;
+    @apply text-sm font-medium text-muted;
   }
 
   .chat-userbutton {
