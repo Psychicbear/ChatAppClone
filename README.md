@@ -88,8 +88,26 @@ Potentially client side features such as themes, different page layouts etc
 * Message component, displays a message and displays timestamp on hover if it is not first message of collection
 * Participant list component, displays list of participants, and varies based on whether or not it is viewed in a channel, group or direct message.
 * Participant component, displays one participant in list, shows their name, profile picture and whether or not they are online/active
+* Context API for Socket.IO connection, sends commands with user token to socket.io server
 
 ### Back End Requirements
+
+- Login endpoint, authenticates users and serves a success packet to client with first time load information about the user (eg. user token, user settings, user notifications), otherwise sends an error packet with error information
+- Register endpoint, takes registration form and ensures that it meets standards of registration, if successful it returns first time load information with defaults
+- User Controller object for managing data updates to user, and socket update methods
+- Socket.IO connect method, When user connects, deliver relevant notification data, set user to their preferred state in server (Online, away, Do not disturb, invisible/appear offline)
+- Socket.IO server route response, When user loads server route, update active server participants to show that this user is active here
+- Socket.IO channel route response, when user loads channel route within server route, update active participants of channel to show user is active in this channel
+- Socket.IO message sent response, when user sends a message, update chat for active participants, send notification to inactive participants, update sender with confirmation, update database with new chat message
+
+
+
+
+
+### Back End Extras
+
+- Socket.IO user typing response, when user makes change to message input field, notify relevant users that user is in typing state
+- Socket.IO user stopped typing response, when user has stopped typing for ~5 seconds, notify relevant users that user has left typing state
 
 
 # Rough Feature Ideas
@@ -102,7 +120,7 @@ A notification service should be integrated and used by each user in most if not
 {
 	"type": "dm",
 	"end-user": "23345", //User ID of user receiving message
-	"channel": "2334554332" //Channel ID for DM, constructed of the two participant User IDs concatenated
+	"channel": "2334554332", //Channel ID for DM, constructed of the two participant User IDs concatenated
 	"preview": "Hi, how are you going today?" //Preview message for if such a preview is implemented
 }
 ```
@@ -112,3 +130,11 @@ All the notifications can be loaded once from the user data upon logging in, and
 ## Chat pagination (?)
 
 I struggled initially with the idea of how to properly load and present messages so that the latest messages were at the bottom of the view container, and users can scroll up to load new messages. I made the realistation however there it may be possible to use a pagination feature of the database or perhaps ORM, and base the chat loading off of scroll position. That is to say, loading the chat will load the first ~20 messages and then put the view container's scroll to the bottom of the view container. Then when the scroll reaches the top of the chat, the next "page" or rather the next ~20 messages will be loaded, resetting the scroll position to wherever it would need to be to view the newly loaded messages. There may be a variable or switch which determines whether or not all messages have been loaded, so that it does not make another request to the server to load nothing, and this can be determined by whether or not the ORM has reached the end of the pagination.
+
+## Async Message Request/Response
+
+When messages are sent to the socket.IO, they can be updated in the front-end as a message with the 'sending' css class. When the socket.IO receives the request and sends a response to all relevant users, a confirmation response should also be sent to the client which sent the message. When this client receives the comfirmation, it will remove the greying out of the message, showing that the message had successfully sent. If it doesn't receive a response in a set time, the message will gain the 'error' css class and display a retry and delete button. i believe there is an Async method to react rendering which will make this easier.
+
+## Suggested/Possible Future Features
+
+- Message search feature (Likely could utilise MongoDB message indexing features)
