@@ -88,10 +88,6 @@
           flex-shrink-0;
   }
 
-  .chat-container {
-    @apply flex flex-row flex-grow hidden-scroll-y flex-shrink 
-          justify-between select-auto;
-  }
 
   /* .chat-main {
     @apply flex flex-row flex-wrap-reverse flex-grow flex-shrink;
@@ -131,7 +127,7 @@
   }
 
   .chat-content {
-    @apply flex flex-col-reverse flex-shrink hidden-scroll-y 
+    @apply flex flex-col flex-shrink hidden-scroll-y 
           h-full w-full items-center select-auto;
   }
 

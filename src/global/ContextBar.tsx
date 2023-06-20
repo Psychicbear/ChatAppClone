@@ -1,14 +1,18 @@
+import { IconType } from "react-icons";
 import { GoOrganization, GoPerson, GoBook } from "react-icons/go"
+import { Link, Navigate, NavLink, To } from "react-router-dom";
 import ControlSection from "./ControlSection";
+
+
 
 const ContextBar = () => {
     return (
         <div className="context-bar">
             <div className="flex flex-col flex-grow hidden-scroll-y">
                 <ul className="order-first ">
-                    <ContentButton icon={<GoBook size="20"/>} text="Servers"/>
-                    <ContentButton icon={<GoPerson size="20"/>} text="Account"/>
-                    <ContentButton icon={<GoOrganization size="20"/>} text="Friends"/>
+                    <ContentButton icon={<GoBook size="20"/>} text="Servers" link="/friends"/>
+                    <ContentButton icon={<GoPerson size="20"/>} text="Account" link="/friends"/>
+                    <ContentButton icon={<GoOrganization size="20"/>} text="Friends" link="/friends"/>
                 </ul>
 
                 <ul className="">
@@ -23,29 +27,37 @@ const ContextBar = () => {
     )
 };
 
-const ContentButton = ({icon, text}:any) => {
-    return (
-        <div className="context-button">
-            <div className="context-icon">
-                {icon}
-            </div>
-            <div className="p-4">
-                {text}
-            </div>
-        </div>
-    )
+type ContentButtonProps = {
+    icon: JSX.Element,
+    text: string,
+    link: string,
 }
 
-const UserButton = ({icon, text}:any) => { //Will eventually take user info as prop
+const ContentButton 
+= (props: ContentButtonProps) => {
     return (
-        <div className="context-button">
+        <NavLink to={props.link} className="context-button">
             <div className="context-icon">
-                <GoPerson size="20"/>
+                {props.icon}
             </div>
             <div className="p-4">
-                {text}
+                {props.text}
             </div>
-        </div>
+        </NavLink>
+    )
+}
+const UserButton = ({icon, text}:any) => { //Will eventually take user info as prop
+    return (
+        <>
+            <NavLink className="context-button" to="/messages/123">
+                <div className="context-icon">
+                    <GoPerson size="20"/>
+                </div>
+                <div className="p-4">
+                    {text}
+                </div>
+            </NavLink>
+        </>
     )
 }
 

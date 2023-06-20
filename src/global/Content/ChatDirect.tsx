@@ -27,7 +27,8 @@ const ChatDirect = () => {
                     <li onClick={changeSideBar}><SideBarToggle active={sidebarActive}/></li>
                 </ul>
             </div>
-            <div className="chat-container">
+            <div className="flex flex-row flex-grow hidden-scroll-y flex-shrink 
+                            justify-between select-auto">
                 <div className="chat-main">
                     <div className="chat-bar">
                         <ChatBar />
